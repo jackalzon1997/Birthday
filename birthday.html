@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Special Birthday 💖</title>
+
+<style>
+body{
+    margin:0;
+    padding:0;
+    font-family:'Segoe UI',sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
+    background:#000;
+    background-size:cover;
+    background-position:center;
+    transition: background 1.5s ease;
+}
+
+#startBtn{
+    padding:15px 30px;
+    font-size:20px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(45deg,#ff4da6,#ff0066);
+    color:white;
+    cursor:pointer;
+    box-shadow:0 0 20px rgba(255,0,100,0.7);
+}
+
+.popup{
+    position:absolute;
+    background:rgba(255,255,255,0.95);
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+    font-size:22px;
+    box-shadow:0 0 30px rgba(0,0,0,0.5);
+    display:none;
+    max-width:85%;
+    animation:fadeIn 1s ease;
+}
+
+.popup a{
+    display:inline-block;
+    margin-top:15px;
+    padding:10px 20px;
+    background:#ff0066;
+    color:white;
+    text-decoration:none;
+    border-radius:20px;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:scale(0.8);}
+    to{opacity:1; transform:scale(1);}
+}
+
+/* Hearts */
+.heart{
+    position:absolute;
+    font-size:20px;
+    animation:float 6s linear infinite;
+}
+
+@keyframes float{
+    0%{transform:translateY(100vh); opacity:1;}
+    100%{transform:translateY(-10vh); opacity:0;}
+}
+
+/* Confetti */
+.confetti{
+    position:absolute;
+    width:8px;
+    height:8px;
+    animation:fall 4s linear infinite;
+}
+
+@keyframes fall{
+    0%{transform:translateY(-10vh) rotate(0deg);}
+    100%{transform:translateY(100vh) rotate(360deg);}
+}
+</style>
+</head>
+<body>
+
+<button id="startBtn" onclick="startWish()">Tap Here 🎁</button>
+
+<div class="popup" id="popupBox"></div>
+
+<audio id="bgMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+</audio>
+
+<script>
+
+const urlParams = new URLSearchParams(window.location.search);
+const name = urlParams.get('name') || "Garima";
+
+function startWish(){
+
+    document.getElementById("startBtn").style.display="none";
+
+    let popup = document.getElementById("popupBox");
+    let music = document.getElementById("bgMusic");
+
+    music.play();
+
+    popup.style.display="block";
+    popup.innerHTML="Hey " + name + " 💖";
+
+    setTimeout(function(){
+
+        document.body.style.backgroundImage=
+        "url('Garima.jpg')";
+
+        popup.innerHTML=
+        "Happy Birthday, cutie! 💕<br><br>May your life be filled with happiness, laughter, and lots of cake today 🍰💛";
+
+        startHearts();
+        startConfetti();
+
+        // FINAL POPUP AFTER 4 MORE SECONDS
+        setTimeout(function(){
+            popup.innerHTML=
+            "I have one more surprise for you 🎁💖<br><br>" +
+            "<a href='https://turbo-indianapolis-chorus-fancy.trycloudflare.com' target='_blank'>Click Here For Surprise 💌</a>";
+        },4000);
+
+    },2000);
+}
+
+function startHearts(){
+    setInterval(()=>{
+        let heart=document.createElement("div");
+        heart.className="heart";
+        heart.innerHTML="💖";
+        heart.style.left=Math.random()*100+"vw";
+        heart.style.fontSize=(Math.random()*20+15)+"px";
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),6000);
+    },300);
+}
+
+function startConfetti(){
+    const colors=["#ff0","#ff4d4d","#4dff4d","#4db8ff","#ff66ff"];
+    setInterval(()=>{
+        let conf=document.createElement("div");
+        conf.className="confetti";
+        conf.style.left=Math.random()*100+"vw";
+        conf.style.backgroundColor=
+        colors[Math.floor(Math.random()*colors.length)];
+        document.body.appendChild(conf);
+        setTimeout(()=>conf.remove(),4000);
+    },200);
+}
+</script>
+</body>
+</html>
